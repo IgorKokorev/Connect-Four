@@ -3,7 +3,9 @@ package connectfour
 var rows = 6
 var columns = 7
 var name1 = ""
+var score1 = 0
 var name2 = ""
+var score2 = 0
 var is1PlayerTurn = true
 var totalGames = 1
 
@@ -18,12 +20,37 @@ fun main() {
 
     println("$name1 VS $name2")
     println("$rows X $columns board")
+    if (totalGames == 1) println("Single game")
+    else println("Total $totalGames games")
 
-    board = Array(rows) { Array(columns) { ' ' } }
+    for (i in 1..totalGames) {
+        if (totalGames != 1) println("Game #$i")
 
-    when(game()){
-        0 -> println("It is a draw")
-        1 -> println("Player ${if (is1PlayerTurn) name2 else name1} won")
+        board = Array(rows) { Array(columns) { ' ' } }
+        is1PlayerTurn = if (i % 2 == 1) true
+        else false
+
+        when(game()){
+            0 -> {
+                println("It is a draw")
+                score1 += 1
+                score2 += 1
+            }
+            1 -> {
+                print("Player ")
+                if (is1PlayerTurn) {
+                    print(name2)
+                    score2 += 2
+                } else {
+                    print(name1)
+                    score1 += 2
+                }
+                println(" won")
+            }
+            -1 -> break
+        }
+        println("Score")
+        println("$name1: $score1 $name2: $score2")
     }
 
     println("Game over!")
@@ -71,16 +98,29 @@ private fun getAllData() {
         break
     }
 
-    println("Do you want to play single or multiple games?\n" +
-            "For a single game, input 1 or press Enter\n" +
-            "Input a number of games:")
+    while (true) {
+        println("Do you want to play single or multiple games?\n" +
+                "For a single game, input 1 or press Enter\n" +
+                "Input a number of games:")
 
-    val inp = readln()
-    totalGames = try {
-        inp.toInt()
-    } catch (e: NumberFormatException) {
-        println("Invalid input")
-        1
+        val inp = readln()
+        if (inp.isEmpty()) {
+            totalGames = 1
+            break
+        }
+
+        try {
+            totalGames = inp.toInt()
+        } catch (e: NumberFormatException) {
+            println("Invalid input")
+            continue
+        }
+
+        if (totalGames < 1) {
+            println("Invalid input")
+            continue
+        }
+        break
     }
 }
 
