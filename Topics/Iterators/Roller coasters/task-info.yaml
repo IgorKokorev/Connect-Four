@@ -1,0 +1,22 @@
+type: code
+custom_name: Roller coasters!
+files:
+- name: src/Main.kt
+  visible: true
+  text: |-
+    fun checkHeight(iterator: Iterator<Int>) {
+        // write your code here
+    }
+
+    fun main() {
+        val list = readln().split(" ").map(Integer::parseInt).toList()
+        checkHeight(list.iterator())
+    }
+  learner_created: false
+feedback_link: https://hyperskill.org/learn/step/20801#comment
+status: Solved
+feedback:
+  message: <html>Correct solution</html>
+  time: "Mon, 17 Apr 2023 22:26:11 UTC"
+record: -1
+submission_language: kotlin
