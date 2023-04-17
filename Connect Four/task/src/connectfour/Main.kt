@@ -5,6 +5,7 @@ var columns = 7
 var name1 = ""
 var name2 = ""
 var is1PlayerTurn = true
+var totalGames = 1
 
 const val WIN_MUM = 4
 
@@ -69,6 +70,18 @@ private fun getAllData() {
 
         break
     }
+
+    println("Do you want to play single or multiple games?\n" +
+            "For a single game, input 1 or press Enter\n" +
+            "Input a number of games:")
+
+    val inp = readln()
+    totalGames = try {
+        inp.toInt()
+    } catch (e: NumberFormatException) {
+        println("Invalid input")
+        1
+    }
 }
 
 // returns -1 if players want to end the game,
@@ -90,7 +103,7 @@ private fun game(): Int {
             val move = readln()
             if (move.equals("end")) return -1
 
-            var c = 0
+            var c: Int
 
             try {
                 c = move.toInt()
